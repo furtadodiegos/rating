@@ -7,7 +7,7 @@ const App = () => {
   return (
     <AppScreen testid="home">
       <View>
-        <Text>Hello</Text>
+        <Text>Hello Husky</Text>
       </View>
     </AppScreen>
   );

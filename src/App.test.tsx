@@ -8,6 +8,6 @@ describe('App', () => {
     const { getByTestId, getByText } = render(<App />);
 
     expect(getByTestId('app.screen.home')).toBeTruthy();
-    expect(getByText('Hello')).toBeTruthy();
+    expect(getByText('Hello Husky')).toBeTruthy();
   });
 });
