@@ -6,7 +6,7 @@ export default StyleSheet.create({
     padding: 22,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 4,
+    borderRadius: 5,
     borderColor: 'rgba(0, 0, 0, 0.1)',
   },
 });

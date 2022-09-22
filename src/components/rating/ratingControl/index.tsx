@@ -6,7 +6,8 @@ import type { TapRatingProps } from 'react-native-ratings';
 
 import AppButton from '../../button';
 import styles from './ratingControl.styles';
-import type { ActionProps, ControlStateProps } from '../../../contexts';
+import type { ActionProps } from '../../../contexts';
+import type { ControlStateProps } from '../../../types';
 
 interface RatingControlProps extends TapRatingProps {
   displayed: number;
@@ -37,6 +38,7 @@ const RatingControl: FC<RatingControlProps> = ({ onAction, displayed, action, ..
           <Text style={styles.feedbackText}>Any feedback for us</Text>
 
           <TextInput
+            testID="app.ratingcontrol.textinput"
             value={feedback}
             style={styles.feedbackInput}
             multiline
@@ -49,7 +51,7 @@ const RatingControl: FC<RatingControlProps> = ({ onAction, displayed, action, ..
           </AppButton>
         </View>
       ) : (
-        <AppButton onPress={onSubmit}>
+        <AppButton onPress={onSubmit} testID="app.ratingcontrol.remind.submit">
           <Text style={[styles.align, styles.remindText]}>Remind me later</Text>
         </AppButton>
       )}
