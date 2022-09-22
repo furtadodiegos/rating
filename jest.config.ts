@@ -9,6 +9,6 @@ export default {
   setupFilesAfterEnv: ['./__tests__/setup.ts'],
   testEnvironment: 'jsdom',
   testRegex: '(\\.|/)test\\.(ts|tsx|js|jsx)$',
-  transformIgnorePatterns: ['node_modules/(?!(jest-)?@?react-native|@react-native-community)'],
+  transformIgnorePatterns: ['node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation)'],
   verbose: true,
 };

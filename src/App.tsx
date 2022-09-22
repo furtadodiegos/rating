@@ -1,15 +1,27 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import Toast from 'react-native-toast-message';
+import type { FC, PropsWithChildren } from 'react';
 
-import { AppScreen } from './components';
+import { AppModal } from './components';
+import { ActionsProvider, ModalProvider } from './contexts';
+import { AppNavigation } from './navigation';
+
+const AppProviders: FC<PropsWithChildren> = ({ children }) => {
+  return (
+    <ActionsProvider>
+      <ModalProvider>{children}</ModalProvider>
+    </ActionsProvider>
+  );
+};
 
 const App = () => {
   return (
-    <AppScreen testid="home">
-      <View>
-        <Text>Hello Husky</Text>
-      </View>
-    </AppScreen>
+    <AppProviders>
+      <AppNavigation />
+
+      <Toast />
+      <AppModal />
+    </AppProviders>
   );
 };
 
