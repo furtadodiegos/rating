@@ -9,24 +9,9 @@ import { RatingControl } from '../components/rating';
 import { axios } from '../services';
 import { useActions } from './actions';
 import { useModal } from './modal';
-import type { Control } from '../types';
-
-export type ControlActionTypes =
-  | 'GET_CONTROL'
-  | 'GET_CONTROL_START'
-  | 'GET_CONTROL_ERROR'
-  | 'PATCH_CONTROL'
-  | 'PATCH_CONTROL_START'
-  | 'PATCH_CONTROL_ERROR';
+import type { ControlActionTypes, ControlProps, ControlStateProps } from '../types';
 
 export type Action = { type: ControlActionTypes; payload?: any };
-
-export type ControlStateProps = Partial<Control>;
-
-export type ControlProps = ControlStateProps & {
-  isLoading: boolean;
-  error: any;
-};
 
 const controlReducer = (state: ControlProps, { type, payload }: Action): ControlProps => {
   switch (type) {
@@ -79,22 +64,11 @@ const ControlProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   }, []);
 
-  const onStart = useCallback(async () => {
-    await apiCall({ action: 'GET_CONTROL', method: 'GET', url: '/control' });
-  }, [apiCall]);
-
-  const onAction = useCallback(
-    (data: ControlStateProps) => {
-      apiCall({ action: 'PATCH_CONTROL', method: 'PUT', url: '/control', data });
-    },
-    [apiCall],
-  );
-
   const value = useMemo(() => ({ ...controlState }), [controlState]);
 
   useEffect(() => {
-    if (!controlState?.id) onStart();
-  }, [controlState?.id, onStart]);
+    if (!controlState?.id) apiCall({ action: 'GET_CONTROL', method: 'GET', url: '/control' });
+  }, [controlState?.id, apiCall]);
 
   useEffect(() => {
     if (
@@ -104,12 +78,13 @@ const ControlProvider: FC<PropsWithChildren> = ({ children }) => {
     )
       setContent(
         createElement(RatingControl, {
-          onAction,
+          onAction: (data: ControlStateProps) =>
+            apiCall({ action: 'PATCH_CONTROL', method: 'PUT', url: '/control', data }),
           displayed: (controlState?.displayed || 0) + 1,
           action: currentAction,
         }),
       );
-  }, [currentAction, setContent, onAction, controlState]);
+  }, [currentAction, setContent, controlState, apiCall]);
 
   useEffect(() => {
     if (!content && currentAction) setAction(undefined);

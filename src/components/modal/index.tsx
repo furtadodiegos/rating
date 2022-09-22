@@ -10,8 +10,10 @@ const AppModal: FC = () => {
   const { content } = useModal();
 
   return (
-    <Modal isVisible={!!content} animationOutTiming={600} onTouchStart={() => Keyboard.dismiss()}>
-      <View style={styles.content}>{content}</View>
+    <Modal isVisible={!!content} animationOutTiming={600} onTouchStart={() => Keyboard.dismiss()} testID="app.modal">
+      <View style={styles.content} testID="app.modal.content">
+        {content}
+      </View>
     </Modal>
   );
 };
