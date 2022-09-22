@@ -15,7 +15,7 @@ const ControlScreen: FC = () => {
         isLoading={isLoading}
         data={actions}
         renderItem={({ item }) => (
-          <AppButton onPress={() => setAction(item)}>
+          <AppButton testID="screen.control.list.item.button" onPress={() => setAction(item)}>
             <Text>{item.toUpperCase()}</Text>
           </AppButton>
         )}

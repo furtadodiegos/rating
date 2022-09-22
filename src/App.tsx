@@ -6,7 +6,7 @@ import { AppModal } from './components';
 import { ActionsProvider, ModalProvider } from './contexts';
 import { AppNavigation } from './navigation';
 
-const AppProviders: FC<PropsWithChildren> = ({ children }) => {
+export const AppProviders: FC<PropsWithChildren> = ({ children }) => {
   return (
     <ActionsProvider>
       <ModalProvider>{children}</ModalProvider>
