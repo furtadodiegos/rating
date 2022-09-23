@@ -1,8 +1,11 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
+  extends: ['@react-native-community', 'eslint:recommended', 'plugin:import/typescript', 'airbnb-typescript-prettier'],
+  parserOptions: {
+    sourceType: 'module',
+  },
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', '@typescript-eslint/eslint-plugin', 'simple-import-sort', 'react-native'],
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
@@ -13,4 +16,34 @@ module.exports = {
       },
     },
   ],
+  rules: {
+    'import/no-named-default': 'off',
+    'react/function-component-definition': 'off',
+    'react/no-unstable-nested-components': 'off',
+    'import/no-unresolved': 'error',
+    'global-require': 'off',
+    camelcase: 'off',
+    '@typescript-eslint/consistent-type-imports': 'error',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
+    'react-native/no-inline-styles': 'warn',
+    'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': 'off',
+
+    'simple-import-sort/imports': [
+      'error',
+      {
+        groups: [
+          ['^\\u0000'],
+          ['^@?\\w', '^@?\\w.*\\u0000$'],
+          ['(?<!\\u0000)$', '(?<=\\u0000)$'],
+          ['^\\.', '^\\..*\\u0000$'],
+        ],
+      },
+    ],
+  },
+  ignorePatterns: ['__tests__/**/*.tsx', '__coverage__/**/*.js', 'jest.config.ts'],
 };
