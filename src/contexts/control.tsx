@@ -1,12 +1,12 @@
 import moment from 'moment';
 import React, { createContext, createElement, useCallback, useContext, useEffect, useMemo, useReducer } from 'react';
-import { Linking, Platform } from 'react-native';
 import Toast from 'react-native-toast-message';
-import type { AxiosError, Method } from 'axios';
+import type { AxiosError, AxiosRequestConfig } from 'axios';
 import type { FC, PropsWithChildren } from 'react';
 
 import { RatingControl } from '../components/rating';
 import { axios } from '../services';
+import { goToStore } from '../utils';
 import { useActions } from './actions';
 import { useModal } from './modal';
 import type { ControlActionTypes, ControlProps, ControlStateProps } from '../types';
@@ -34,11 +34,8 @@ const controlReducer = (state: ControlProps, { type, payload }: Action): Control
 
 const ControlContext = createContext({} as ControlProps);
 
-export interface ReducerAction {
+export interface ReducerAction extends AxiosRequestConfig {
   action: ControlActionTypes;
-  method: Method;
-  url: string;
-  data?: any;
 }
 
 const ControlProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -102,11 +99,7 @@ const ControlProvider: FC<PropsWithChildren> = ({ children }) => {
       });
 
     if (moment().diff(moment(controlState.updatedAt), 'days') === 0 && controlState.value) {
-      if (controlState.value >= 4)
-        Platform.select({
-          ios: Linking.openURL('itms-apps://itunes.apple.com/us/app/id1453817491?mt=8'),
-          default: Linking.openURL('market://details?id=com.racketpal'),
-        });
+      if (controlState.value >= 4) goToStore();
       else
         Toast.show({
           type: 'success',

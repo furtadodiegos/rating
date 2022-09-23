@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
 export type ActionProps = 'creating' | 'joining' | 'inviting' | 'accepting';
@@ -16,13 +16,6 @@ const ActionsProvider: FC<PropsWithChildren> = ({ children }) => {
   const [actions] = useState<ActionProps[]>(['creating', 'joining', 'inviting', 'accepting']);
 
   const value = useMemo(() => ({ action, setAction, actions }), [action, actions]);
-
-  useEffect(() => {
-    return () => {
-      console.log('>>>>>> LEFT ACTIONS');
-      setAction(undefined);
-    };
-  }, []);
 
   return <ActionsContext.Provider value={value}>{children}</ActionsContext.Provider>;
 };

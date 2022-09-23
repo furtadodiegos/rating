@@ -4,6 +4,7 @@
 - [Best practices 🤩](#best-practices-🤩)
 - [Git Patterns 😻](#git-patterns-😻)
 - [Tests](#tests-🧪)
+- [Mocks](#mocks-📦)
 
 ## About-📄
 
@@ -16,6 +17,8 @@ A Simple React Native App using Typescript and React Context
 ---
 
 - In this application we are following the airbnb guideline
+- In this application we are following SOLID principles
+- In this application we are following the KISS pattern
 
 ## Git Patterns 😻
 
@@ -62,3 +65,12 @@ example:
       - **home.test.tsx**
       - home.hook.ts
       - home.styles.ts
+
+## Mocks 📦
+
+---
+
+In this application we are using `axios-mock-adapter` to simulate an real API
+
+- On Mocks folder, we can create routes by feature
+- Each feature can contain seeds that would help with the fake data
