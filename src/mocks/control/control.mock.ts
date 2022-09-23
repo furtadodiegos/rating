@@ -6,17 +6,17 @@ import { intialValues } from './control.seeds';
 import type { MockResponseProps } from '../../services/axios';
 import type { Control } from '../../types';
 
-const value = intialValues;
+let values = intialValues;
 
 const controlMock = (mock: AxiosMockAdapter) => {
   mock.onGet(`${settings.apiURL}/control`).reply((): MockResponseProps<Control> => {
-    return [200, value];
+    return [200, values];
   });
 
   mock.onPut(`${settings.apiURL}/control`).reply(({ data }): MockResponseProps<Control | { message: string }> => {
-    const result: Control = { ...value, ...JSON.parse(data), updatedAt: moment().format('YYYY-MM-DD HH:mm') };
+    values = { ...values, ...JSON.parse(data), updatedAt: moment().format('YYYY-MM-DD HH:mm') };
 
-    return result.feedback !== 'error' ? [200, result] : [400, { message: 'Some randon error' }];
+    return values.feedback !== 'error' ? [200, values] : [400, { message: 'Some randon error' }];
   });
 };
 

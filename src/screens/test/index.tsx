@@ -1,13 +1,33 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 import type { FC } from 'react';
 
+import { AppButton, AppList, AppScreen } from '../../components';
+import { TestProvider, useActions, useTest } from '../../contexts';
+
 const TestScreen: FC = () => {
+  const { actions, setAction } = useActions();
+  const { isLoading } = useTest();
+
   return (
-    <View>
-      <Text>TestScreen</Text>
-    </View>
+    <AppScreen testid="test">
+      <AppList
+        isLoading={isLoading}
+        data={actions}
+        renderItem={({ item }) => (
+          <AppButton testID="screen.test.list.item.button" onPress={() => setAction(item)}>
+            <Text>{item.toUpperCase()}</Text>
+          </AppButton>
+        )}
+      />
+    </AppScreen>
   );
 };
 
-export default TestScreen;
+const WithTestProvider: FC = () => (
+  <TestProvider>
+    <TestScreen />
+  </TestProvider>
+);
+
+export default WithTestProvider;
